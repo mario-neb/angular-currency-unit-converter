@@ -1,0 +1,26 @@
+<form [formGroup]="lengthForm" (ngSubmit)="convert()" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field appearance="fill">
+    <mat-label>From</mat-label>
+    <mat-select (selectionChange)="clearResult()"  formControlName="fromUnit">
+      <mat-option *ngFor="let unit of units" [value]="unit">{{ unit }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount" type="number" (input)="clearResult()">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>To</mat-label>
+    <mat-select formControlName="toUnit" (selectionChange)="clearResult()">
+      <mat-option *ngFor="let unit of units" [value]="unit">{{ unit }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Convert</button>
+</form>
+
+<div  style="padding-top: 30px" *ngIf="result !== null">
+  <h1>{{ lengthForm.value.amount }} {{ lengthForm.value.fromUnit }} = {{ result | number:'1.2-2' }} {{ lengthForm.value.toUnit }}</h1>
+</div>

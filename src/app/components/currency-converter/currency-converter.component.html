@@ -1,0 +1,30 @@
+<form [formGroup]="conversionForm" (ngSubmit)="convert()" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field appearance="fill">
+    <mat-label>From</mat-label>
+    <mat-select (selectionChange)="clearResult()" formControlName="fromUnit" (selectionChange)="getRates(conversionForm.value.fromUnit)">
+      <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount" type="number" (input)="clearResult()">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>To</mat-label>
+    <mat-select formControlName="toUnit" (selectionChange)="clearResult()">
+      <mat-option  *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="compareActualwithLatestConversion()">Convert</button>
+
+  <div *ngIf="result !== null" style="padding-top:20px;">
+    {{ conversionForm.value.amount }} {{ conversionForm.value.fromUnit }} = {{ result | number:'1.2-2' }} {{ conversionForm.value.toUnit }}
+  </div>
+</form>
+
+<app-conversion-history [conversionHistory]="conversionHistory"></app-conversion-history>
+
+

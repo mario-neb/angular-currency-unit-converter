@@ -1,0 +1,6 @@
+<h2 style="padding-top:20px;">{{conversionHistory.length == 0 ? 'Convert some values to see the history' : 'Conversion History'}}</h2>
+<ul>
+  <li *ngFor="let history of conversionHistory">
+    {{ history.amount }} {{ history.originalType }} = {{ history.convertedValue | number:'1.2-2' }} {{ history.desiredType }}
+  </li>
+</ul>
